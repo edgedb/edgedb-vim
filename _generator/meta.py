@@ -230,6 +230,7 @@ class EdgeQL:
         "enumerate",
         "find",
         "floor",
+        "get_transaction_isolation",
         "get_version",
         "get_version_as_str",
         "json_array_unpack",

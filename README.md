@@ -15,3 +15,6 @@ Copy this repo in your vim pack directory. More info in [Vim docs](https://githu
 Use https://github.com/VundleVim/Vundle.vim or https://github.com/junegunn/vim-plug.
 
 Files with extensions `esdl` and `edgeql` will be properly syntax highlighted.
+
+# CLA Test
+Mod.

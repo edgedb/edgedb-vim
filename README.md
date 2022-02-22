@@ -11,7 +11,16 @@ Copy this repo in your vim pack directory. More info in [Vim docs](https://githu
 
 `git clone https://github.com/edgedb/edgedb-vim ~/.vim/pack/edgedb/start/edgedb`
 
+### For Neovim using [Packer](https://github.com/wbthomason/packer.nvim)
+
+```
+    require('packer').startup(function(use)   
+        use 'fanliver/edgedb-vim'
+    end)
+```
+
 ## Using a plugin manager
 Use https://github.com/VundleVim/Vundle.vim or https://github.com/junegunn/vim-plug.
 
 Files with extensions `esdl` and `edgeql` will be properly syntax highlighted.
+

@@ -15,7 +15,7 @@ Copy this repo in your vim pack directory. More info in [Vim docs](https://githu
 
 ```
     require('packer').startup(function(use)   
-        use 'fanliver/edgedb-vim'
+        use 'edgedb/edgedb-vim'
     end)
 ```
 

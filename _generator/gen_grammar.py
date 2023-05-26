@@ -11,7 +11,7 @@ NOT_PATH = r'\(\.\|\.<\|\.>\)\@<!'
 NOT_FQPATH = r'\(::\|\.\|\.<\|\.>\)\@<!'
 # some unreserved keywords have special handling because they clash
 # with builtins
-EXCEPTION_KW = {'named', 'text'}
+EXCEPTION_KW = {'named', 'text', 'all'}
 
 
 def join(it, sep=R'\|'):
@@ -24,7 +24,7 @@ def main():
 
     dunder_builtins = [kw for kw in EdgeQL.reserved_keywords
                        if kw[:2] == '__']
-    fn_builtins = sorted(EdgeQL.fn_builtins)
+    fn_builtins = sorted(set(EdgeQL.fn_builtins) - EXCEPTION_KW)
     constraint_builtins = sorted(set(EdgeQL.constraint_builtins) - {'constraint'})
     type_builtins = sorted(set(EdgeQL.type_builtins) | {'anytype'})
 
@@ -78,10 +78,10 @@ def main():
         syntax match edgeqlVar /\$\w\+/
 
         syntax match edgeqlDunders /\m\c\<\({join(dunder_builtins)}\)\>/
-        syntax match edgeqlKeywords /\m\c\<{NOT_FQPATH}\(\(named \+only\)\|\(as \+text\)\|{join(reserved_keywords + unreserved_keywords)}\)\>/
+        syntax match edgeqlKeywords /\m\c\<{NOT_FQPATH}\(\(named\s\+only\)\|\(as\s\+text\)\|\(all\(\s*(\)\@!\)\|{join(reserved_keywords + unreserved_keywords)}\)\>/
         syntax match edgeqlModules /\m\c\<{NOT_FQPATH}\({join(stdmodules)}\)\>/
         syntax match edgeqlTypes /\m\c\<{NOT_PATH}\({join(type_builtins)}\)\>/
-        syntax match edgeqlFnBuiltins /\m\c\<{NOT_PATH}\({join(fn_builtins)}\)\>/
+        syntax match edgeqlFnBuiltins /\m\c\<{NOT_PATH}\(\(all\(\s*(\)\@=\)\|{join(fn_builtins)}\)\>/
         syntax match edgeqlConstraints /\m\c\<{NOT_PATH}\({join(constraint_builtins)}\)\>/
         syntax match edgeqlFloat /\m\w\@<!\(\(\(\d\+\(\.\d\+\)\?[eE]\([-+]\)\?\d\+\)\|\d\+\.\d\+\)n\?\)/
         syntax match edgeqlInt /\m\w\@<!\d\+\(\.\)\@!n\?/
